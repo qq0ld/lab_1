@@ -10,6 +10,8 @@ using namespace std;
 // 15 varik blyad
 // kajduyu stroku matrix po vozr
 
+
+
 void bubble(int arr[], int size, vector <int> &v){
     int comp = 0, swp = 0;
     for (int i = 0; i < size; i++){
@@ -18,15 +20,8 @@ void bubble(int arr[], int size, vector <int> &v){
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
-                comp++;
-                swp++;
             }
         }
-    }
-    v.push_back(comp);
-    v.push_back(swp);
-    for (int i = 0; i < v.size(); i++){
-        cout << v[i] << "\t";
     }
 }
 
@@ -126,9 +121,9 @@ int main(){
 
     bubble(dub, size, v);
     quicksort(dub, 0, size - 1);
-    // inssort(dub, size);
-    // selsort(dub, size);
-    // shsort(dub, size);
+    inssort(dub, size);
+    selsort(dub, size);
+    shsort(dub, size);
 
     ix = 0;
 

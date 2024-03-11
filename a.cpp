@@ -2,6 +2,7 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <algorithm>
 #include <iomanip>
 
 using namespace std;
@@ -13,12 +14,13 @@ int a1 = 0, b1 = 0; // a eto perestanowki, b sravnenija
 void bubble(int arr[], int size){
     for (int i = 0; i < size; i++){
         for (int j = i+1; j < size; j++){
+            a1++;
             if (arr[i] > arr[j]){
                 int temp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = temp;
-                a1++;
-            } else b1++;
+                b1++;
+            }  
         }
     }
 }
@@ -81,6 +83,7 @@ void inssort(int arr[], int size){ // insertion sort
         while (key < arr[j] and j >= 0){
             arr[j + 1] = arr[j];
             b3++;
+            a3++;
             --j;
         } 
         arr[j + 1] = key;
@@ -93,9 +96,9 @@ void selsort(int arr[], int size){ // selection sort // a eto perestanowki, b sr
     for (int step = 0; step < size - 1; step++){
         int min_ix = step; // ix stands for index
         for (int i = step + 1; i < size; i++){
+            b4++;
             if (arr[i] < arr[min_ix]){
                 min_ix = i;
-                b4++;
             }
         }
         swap(&arr[min_ix], &arr[step]);
@@ -112,6 +115,7 @@ void shsort(int arr[], int n){ // shell sort // a eto perestanowki, b sravnenija
             for (j = i; j >= intl and arr[j - intl] > temp; j -= intl){
                 arr[j] = arr[j - intl];
                 b5++;
+                a5++;
             }
             arr[j] = temp;
             a5++;
@@ -133,19 +137,21 @@ void Sorted(int n){
     cout << '-' << setfill('-') << setw(l+4) << '-' << endl;
 }
 
-
 void vivod(int arr1[], int arr2[], int arr3[], int arr4[], int arr5[], int m, int n){
-    int arr[m][n];
+    int a1[m][n];
+    int a2[m][n];
+    int a3[m][n];
+    int a4[m][n];
+    int a5[m][n];
     int size = 0;
-    int sw = 0;
 
     Sorted(n);
 
     for (int i = 0; i < m; i++){
         cout << "| ";
         for (int j = 0; j < n; j++){
-            arr[i][j] = arr1[size++];
-            cout << arr[i][j] << "\t";
+            a1[i][j] = arr1[size++];
+            cout << a1[i][j] << "\t";
         }
         cout << "|" << endl;
     }
@@ -157,35 +163,8 @@ void vivod(int arr1[], int arr2[], int arr3[], int arr4[], int arr5[], int m, in
     for (int i = 0; i < m; i++){
         cout << "| ";
         for (int j = 0; j < n; j++){
-            arr[i][j] = arr2[size++];
-            cout << arr[i][j] << "\t";
-        }
-        cout << "|" << endl;
-    }
-
-    Sorted(n);
-    
-    size = 0;
-
-    for (int i = 0; i < m; i++){
-        cout << "| ";
-        for (int j = 0; j < n; j++){
-            arr[i][j] = arr3[size++];
-            cout << arr[i][j] << "\t";
-        }
-        cout << "|" << endl;
-    }
-
-    Sorted(n);
-    sw++;
-
-    size = 0;
-
-    for (int i = 0; i < m; i++){
-        cout << "| ";
-        for (int j = 0; j < n; j++){
-            arr[i][j] = arr4[size++];
-            cout << arr[i][j] << "\t";
+            a2[i][j] = arr2[size++];
+            cout << a2[i][j] << "\t";
         }
         cout << "|" << endl;
     }
@@ -197,8 +176,34 @@ void vivod(int arr1[], int arr2[], int arr3[], int arr4[], int arr5[], int m, in
     for (int i = 0; i < m; i++){
         cout << "| ";
         for (int j = 0; j < n; j++){
-            arr[i][j] = arr5[size++];
-            cout << arr[i][j] << "\t";
+            a3[i][j] = arr3[size++];
+            cout << a3[i][j] << "\t";
+        }
+        cout << "|" << endl;
+    }
+
+    Sorted(n);
+
+    size = 0;
+
+    for (int i = 0; i < m; i++){
+        cout << "| ";
+        for (int j = 0; j < n; j++){
+            a4[i][j] = arr4[size++];
+            cout << a4[i][j] << "\t";
+        }
+        cout << "|" << endl;
+    }
+
+    Sorted(n);
+    
+    size = 0;
+
+    for (int i = 0; i < m; i++){
+        cout << "| ";
+        for (int j = 0; j < n; j++){
+            a5[i][j] = arr5[size++];
+            cout << a5[i][j] << "\t";
         }
         cout << "|" << endl;
     }
@@ -214,22 +219,25 @@ void Top(int n){
     cout << '-' << setfill('-') << setw(l+4) << '-' << endl;
 }
 
-
-
-
 void Stats(string sorts[]){
-    int l = 30;
+    int l = 32;
+    
+
     cout << '-' << setfill('-') << setw(l-1) << '-' << endl;
-    cout << '|' << setw(15) << setfill(' ') << "stats" << setw(14) << setfill(' ') << '|' << endl;
+    cout << '|' << setw(16) << setfill(' ') << "stats" << setw(15) << setfill(' ') << '|' << endl;
     cout << '-' << setfill('-') << setw(l-1) << '-' << endl;
-    cout << "| " << "sort " << setw(1) << setfill(' ') << '|' << " comparison |" << " swaps" << setfill(' ') << setw(3) << "|" << endl;
+    cout << "| " << "sort   " << setw(1) << setfill(' ') << '|' << " comparison |" << " swaps" << setfill(' ') << setw(3) << "|" << endl;
     cout << '-' << setfill('-') << setw(l-1) << '-' << endl;
-    cout << "| " << sorts[0] << ":" << setw(9) << setfill(' ') << b1 << " |" << setw(8) << setfill(' ') << a1 << "|" << endl;
-    cout << "| " << sorts[1] << ":" << setw(9) << setfill(' ') << b2 << " |" << setw(8) << setfill(' ') << a2 << "|" << endl;
-    cout << "| " << sorts[2] << ":" << setw(9) << setfill(' ') << b3 << " |" << setw(8) << setfill(' ') << a3 << "|" << endl;
-    cout << "| " << sorts[3] << ":" << setw(9) << setfill(' ') << b4 << " |" << setw(8) << setfill(' ') << a4 << "|" << endl;
-    cout << "| " << sorts[4] << ":" << setw(9) << setfill(' ') << a5 << " |" << setw(8) << setfill(' ') << b5 << "|" << endl;
+    int mAss[5] = {a1, a2, a3, a4, a5};
+    int mBss[5] = {b1, b2, b3, b4, b5};
+    for (int i = 0; i < 5; i++){
+        cout << "| " << sorts[i] << ":" << setw(11) << setfill(' ') << mAss[i] << " |" << setw(7) << setfill(' ') << mBss[i] << " |" << endl;    
+    }
     cout << '-' << setfill('-') << setw(l-1) << '-' << endl;
+}
+
+bool ck(const string& str){
+    return str.find_first_not_of("0123456789") == string::npos;
 }
 
 int main(){
@@ -237,8 +245,24 @@ int main(){
 
     srand (time(0));
 
-    m = rand() % 10 + 1;
-    n = rand() % 10 + 1;
+    string str1 = "", str2 = "";
+    
+    cout << endl << "enter m and n, inti, men'she 10" << endl;
+    cin >> str1 >> str2;
+
+    if (!ck(str1) or !ck(str2)){
+        cout << "you've entred the wrong number" << endl;
+        cout << "default values (m = n = 5) were set" << endl;
+        m = n = 5;
+    } else {
+        m = stoi(str1);
+        n = stoi(str2);
+        if ((m > 10 or n > 10) or (m <= 0 or (n <= 0))){
+            cout << "you've entred the wrong number" << endl;
+            cout << "default values (m = n = 5) were set" << endl;
+            m = n = 5;
+        }
+    }
 
     int arr[m][n];
     int ix = 0;
@@ -278,7 +302,6 @@ int main(){
         dub5[i] = dub[i];
     }
 
-
     bubble(dub1, size);
     quicksort(dub2, 0, size - 1);
     inssort(dub3, size);
@@ -289,14 +312,13 @@ int main(){
 
     vivod(dub1, dub2, dub3, dub4, dub5, m, n);
 
-
     Line(n);
     
     cout << endl;
 
     Stats(sorts);
-
-
+    
+    cout << endl;
 
     return 0;
 }
